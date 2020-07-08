@@ -18,6 +18,19 @@
             </div>
             <br>
             <div class="form-group">
+                {{ form.plant_nick.label }}
+                {{ form.plant_nick }}
+
+                {% if form.plant_nick.errors %}
+                    <div class="error">
+                        {% for error in form.plant_nick.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
                 {{ form.plant_desc.label }}
                 {{ form.plant_desc }}
 

@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 
 {%  block body_content %}
-    <h1>This is Homepage!</h1>
+    <h1>This is the plant list!</h1>
 
-    {%  for post in posts %}
+    {%  for post in plants %}
         <div>
-            <h3>{{ post.title }}</h3>
-            <p><b>Author: </b>{{ post.plant_name + " " + post.l_name }}</p>
-            <p>{{ post.content }}</p>
+            <h3>Name: {{ post.plant_name }}</h3>
+            <p><b>Nickname: </b>{{ post.plant_nick }}</p>
+            <p>Plant Details {{ post.plant_desc }}</p>
+            <p>Plant Details {{ post.plant_notes }}</p>
             <br>
         </div>
     {% endfor %}
