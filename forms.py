@@ -37,3 +37,59 @@ class PlantsForm(FlaskForm):
     )
 
     submit = SubmitField('Make a post.')
+
+
+class SignInForm(FlaskForm):
+    username = StringField(
+        'Username: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    password = StringField(
+        'Password: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=64)
+        ]
+    )
+
+    submit = SubmitField('Sign In.')
+
+
+class SignUpForm(FlaskForm):
+    username = StringField(
+        'Desired Username: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    email = StringField(
+        'Email: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    password = StringField(
+        'Password: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=64)
+        ]
+    )
+
+    confpassword = StringField(
+        'Confirm Password: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=64)
+        ]
+    )
+
+    submit = SubmitField('Sign Up.')
