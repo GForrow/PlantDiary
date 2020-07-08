@@ -5,10 +5,10 @@
 
     {%  for post in plants %}
         <div>
-            <h3>Name: {{ post.plant_name }}</h3>
-            <p><b>Nickname: </b>{{ post.plant_nick }}</p>
-            <p>Plant Details {{ post.plant_desc }}</p>
-            <p>Plant Details {{ post.plant_notes }}</p>
+            <h3>Name: <br> {{ post.plant_name }}</h3>
+            <p>Nickname: <br> {{ post.plant_nick }}</p>
+            <p>Plant Details: <br> {{ post.plant_desc }}</p>
+            <p>Plant Notes: <br> {{ post.plant_notes }}</p>
             <br>
         </div>
     {% endfor %}
