@@ -72,7 +72,7 @@ class SignUpForm(FlaskForm):
         'Email: ',
         validators=[
             DataRequired(),
-            Length(min=1, max=30)
+            Length(min=1, max=100)
         ]
     )
 

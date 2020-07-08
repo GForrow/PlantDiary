@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
-from forms import PlantsForm
+from forms import PlantsForm, SignInForm, SignUpForm
 
 app = Flask(__name__)
 
@@ -43,6 +43,40 @@ class Posts(db.Model):
 @app.route('/home')
 def home():
     return render_template('homepage.html', title='Homepage')
+
+
+@app.route('/signin')
+def signin():
+    form = SignInForm()
+    if form.validate_on_submit():
+        post_data = Posts(
+            username=form.username.data,
+            password=form.password.data,
+        )
+        db.session.add(post_data)
+        db.session.commit()
+
+        return redirect(url_for('account'))
+    else:
+        return render_template('signin.html', title='Sign In', form=form)
+
+
+@app.route('/signup')
+def signup():
+    form = SignUpForm()
+    if form.validate_on_submit():
+        post_data = Posts(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+            confpassword=form.confpassword.data,
+        )
+        db.session.add(post_data)
+        db.session.commit()
+
+        return redirect(url_for('account'))
+    else:
+        return render_template('signup.html', title='Sign Up', form=form)
 
 
 @app.route('/account')
