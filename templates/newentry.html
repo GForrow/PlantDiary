@@ -18,12 +18,12 @@
             </div>
             <br>
             <div class="form-group">
-                {{ form.l_name.label }}
-                {{ form.l_name }}
+                {{ form.plant_desc.label }}
+                {{ form.plant_desc }}
 
-                {% if form.l_name.errors %}
+                {% if form.plant_desc.errors %}
                     <div class="error">
-                        {% for error in form.l_name.errors %}
+                        {% for error in form.plant_desc.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
@@ -31,25 +31,12 @@
             </div>
             <br>
             <div class="form-group">
-                {{ form.title.label }}
-                {{ form.title }}
+                {{ form.plant_notes.label }}
+                {{ form.plant_notes }}
 
-                {% if form.title.errors %}
+                {% if form.plant_notes.errors %}
                     <div class="error">
-                        {% for error in form.title.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            <br>
-            <div class="form-group">
-                {{ form.content.label }}
-                {{ form.content }}
-
-                {% if form.content.errors %}
-                    <div class="error">
-                        {% for error in form.content.errors %}
+                        {% for error in form.plant_notes.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>

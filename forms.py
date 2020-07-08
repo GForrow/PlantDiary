@@ -12,7 +12,7 @@ class PlantsForm(FlaskForm):
         ]
     )
 
-    l_name = StringField(
+    plant_nick = StringField(
         'Plant Nickname',
         validators=[
             DataRequired(),
@@ -20,7 +20,7 @@ class PlantsForm(FlaskForm):
         ]
     )
 
-    title = StringField(
+    plant_desc = StringField(
         'Plant Description',
         validators=[
             DataRequired(),
@@ -28,7 +28,7 @@ class PlantsForm(FlaskForm):
         ]
     )
 
-    content = StringField(
+    plant_notes = StringField(
         'Additional Notes',
         validators=[
             DataRequired(),
