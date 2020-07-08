@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+# from app import Users
 
 
 class PlantsForm(FlaskForm):
@@ -40,6 +41,7 @@ class PlantsForm(FlaskForm):
 
 
 class SignInForm(FlaskForm):
+
     username = StringField(
         'Username: ',
         validators=[
@@ -60,19 +62,12 @@ class SignInForm(FlaskForm):
 
 
 class SignUpForm(FlaskForm):
-    username = StringField(
-        'Desired Username: ',
-        validators=[
-            DataRequired(),
-            Length(min=1, max=30)
-        ]
-    )
 
     email = StringField(
         'Email: ',
         validators=[
             DataRequired(),
-            Length(min=1, max=100)
+            Email()
         ]
     )
 
@@ -80,7 +75,6 @@ class SignUpForm(FlaskForm):
         'Password: ',
         validators=[
             DataRequired(),
-            Length(min=1, max=64)
         ]
     )
 
@@ -88,8 +82,9 @@ class SignUpForm(FlaskForm):
         'Confirm Password: ',
         validators=[
             DataRequired(),
-            Length(min=1, max=64)
+            EqualTo('password')
         ]
     )
 
     submit = SubmitField('Sign Up.')
+
