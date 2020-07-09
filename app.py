@@ -1,14 +1,16 @@
-from flask import Flask, redirect, url_for
-from flask import render_template
+from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from forms import PlantsForm, SignInForm, SignUpForm
 from flask_bcrypt import Bcrypt
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 
 app.config['SECRET_KEY'] = environ.get('PLANTAPP_SECRETKEY')
@@ -44,7 +46,7 @@ class Posts(db.Model):
         )
 
 
-class Users(db.Model):
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(500), nullable=False, unique=True)
     password = db.Column(db.String(500), nullable=False)
@@ -59,23 +61,49 @@ def home():
     return render_template('homepage.html', title='Homepage')
 
 
-@app.route('/signin')
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('signin'))
+
+
+@app.route('/signin', methods=['GET', 'POST'])
 def signin():
+    if current_user.is_authenticated:
+        return redirect(url_for('account'))
     form = SignInForm()
     if form.validate_on_submit():
-        post_data = Posts(
-            username=form.username.data,
-            password=form.password.data,
-        )
-        db.session.add(post_data)
-        db.session.commit()
+        user = Users.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect(url_for('account'))
+    return render_template('signin.html', title='Sign In', form=form)
 
-        return redirect(url_for('account'))
-    else:
-        return render_template('signin.html', title='Sign In', form=form)
+    # form = SignInForm()
+    # if form.validate_on_submit():
+    #     post_data = Posts(
+    #         username=form.username.data,
+    #         password=form.password.data,
+    #     )
+    #     db.session.add(post_data)
+    #     db.session.commit()
+    #
+    #     return redirect(url_for('account'))
+    # else:
+    #     return render_template('signin.html', title='Sign In', form=form)
 
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
+@login_required
 def account():
     post_data = Posts.query.all()
     return render_template('account.html', title='My Account', plants=post_data)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 # from app import Users
 
@@ -42,15 +42,15 @@ class PlantsForm(FlaskForm):
 
 class SignInForm(FlaskForm):
 
-    username = StringField(
-        'Username: ',
+    email = StringField(
+        'Email: ',
         validators=[
             DataRequired(),
-            Length(min=1, max=30)
+            Email()
         ]
     )
 
-    password = StringField(
+    password = PasswordField(
         'Password: ',
         validators=[
             DataRequired(),
@@ -58,6 +58,7 @@ class SignInForm(FlaskForm):
         ]
     )
 
+    remember = BooleanField('Remember Me')
     submit = SubmitField('Sign In.')
 
 
