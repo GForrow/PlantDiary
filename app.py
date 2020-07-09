@@ -66,8 +66,8 @@ def load_user(id):
     return Users.query.get(int(id))
 
 
-@app.route("/logout")
-def logout():
+@app.route("/signout")
+def signout():
     logout_user()
     return redirect(url_for('signin'))
 
