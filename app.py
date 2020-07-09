@@ -44,9 +44,6 @@ class Posts(db.Model):
             [
                 'User ID: ', self.user_id, '\r\n',
                 'Title: ', self.plant_name, '\r\n', self.plant_desc
-                # 'Plant: ' + self.plant_name + ' Nickname: ' + self.plant_nick + '\n'
-                #                               'Description: ' + self.plant_desc + '\n'
-                #                                                                   'Notes: ' + self.plant_notes
             ]
         )
 
@@ -119,7 +116,9 @@ def signin():
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    post_data = Posts.query.all()
+    post = current_user.id
+    #post_data = Posts.query.all()
+    post_data = Posts.query.filter_by(user_id=post)
     return render_template('account.html', title='My Account', plants=post_data)
 
 
@@ -170,11 +169,6 @@ def newentry():
 @app.route('/create')
 def create():
     db.create_all()
-    # plant1 = Posts(plant_name="", plant_desc="", plant_nick="", plant_notes="")
-    # plant2 = Posts(plant_name="", plant_desc="", plant_nick="", plant_notes="")
-    # db.session.add(plant1)
-    # db.session.add(plant2)
-    # db.session.commit()
     return "Added table and populated with dummy records"
 
 
@@ -184,6 +178,21 @@ def delete():
     db.session.commit()
     db.drop_all()
     return "It's all gone."
+
+
+@app.route("/updateaccount/delete", methods=['GET', 'POST'])
+@login_required
+def account_delete():
+    user = current_user.id
+    post = current_user.id
+    accounttodelete = Users.query.filter_by(id=user).first()
+    poststodelete = Posts.query.filter_by(user_id=post).all()
+    logout_user()
+    db.session.delete(accounttodelete)
+    db.session.delete(poststodelete)
+    print("delete account")
+    db.session.commit()
+    return redirect(url_for('signup'))
 
 
 def validate_email(self, email):
