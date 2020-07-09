@@ -1,7 +1,42 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import current_user
 # from app import Users
+
+
+class UpdateAccountForm(FlaskForm):
+    first_name = StringField(
+        'First name: ',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=30)
+        ]
+    )
+
+    last_name = StringField(
+        'Last name: ',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=30)
+        ]
+    )
+
+    email = StringField(
+        'Email: ',
+        validators=[
+            DataRequired(),
+            Email()
+        ]
+    )
+
+    submit = SubmitField('Update')
+
+    # def validate_email(self, email):
+    #     if email.data != current_user.email:
+    #         user = Users.query, filter_by(email=email.data).first()
+    #         if user:
+    #             raise ValidationError('Email already in use.')
 
 
 class PlantsForm(FlaskForm):
@@ -63,6 +98,22 @@ class SignInForm(FlaskForm):
 
 
 class SignUpForm(FlaskForm):
+
+    first_name = StringField(
+        'First name: ',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=30)
+        ]
+    )
+
+    last_name = StringField(
+        'Last name: ',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=30)
+        ]
+    )
 
     email = StringField(
         'Email: ',

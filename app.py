@@ -1,16 +1,17 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
-from forms import PlantsForm, SignInForm, SignUpForm
+from forms import PlantsForm, SignInForm, SignUpForm, UpdateAccountForm
 from flask_bcrypt import Bcrypt
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
+from datetime import datetime
 
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'signin'
 
 
 app.config['SECRET_KEY'] = environ.get('PLANTAPP_SECRETKEY')
@@ -35,30 +36,56 @@ class Posts(db.Model):
     plant_nick = db.Column(db.String(30), nullable=True)
     plant_desc = db.Column(db.String(100), nullable=False)
     plant_notes = db.Column(db.String(300), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
         return ''.join(
             [
-                'Plant: ' + self.plant_name + ' Nickname: ' + self.plant_nick + '\n'
-                                              'Description: ' + self.plant_desc + '\n'
-                                                                                  'Notes: ' + self.plant_notes
+                'User ID: ', self.user_id, '\r\n',
+                'Title: ', self.plant_name, '\r\n', self.plant_desc
+                # 'Plant: ' + self.plant_name + ' Nickname: ' + self.plant_nick + '\n'
+                #                               'Description: ' + self.plant_desc + '\n'
+                #                                                                   'Notes: ' + self.plant_notes
             ]
         )
 
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(30), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(500), nullable=False, unique=True)
     password = db.Column(db.String(500), nullable=False)
+    posts = db.relationship('Posts', backref='author', lazy=True)
 
     def __repr__(self):
-        return ''.join(['UserID: ', str(self.id), '\r\n', 'Email: ', self.email])
+        return ''.join(['UserID: ', str(self.id), '\r\n',
+                        'Email: ', self.email, '\r\n',
+                       'Name: ', self.first_name, ' ', self.last_name])
 
 
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('homepage.html', title='Homepage')
+
+
+@app.route('/updateaccount', methods=['GET','POST'])
+@login_required
+def updateaccount():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        db.session.commit()
+        return redirect(url_for('updateaccount'))
+    elif request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.email.data = current_user.email
+    return render_template('updateaccount.html', title='Update Account', form=form)
 
 
 @login_manager.user_loader
@@ -88,19 +115,6 @@ def signin():
                 return redirect(url_for('account'))
     return render_template('signin.html', title='Sign In', form=form)
 
-    # form = SignInForm()
-    # if form.validate_on_submit():
-    #     post_data = Posts(
-    #         username=form.username.data,
-    #         password=form.password.data,
-    #     )
-    #     db.session.add(post_data)
-    #     db.session.commit()
-    #
-    #     return redirect(url_for('account'))
-    # else:
-    #     return render_template('signin.html', title='Sign In', form=form)
-
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
@@ -112,9 +126,18 @@ def account():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()
+
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
     if form.validate_on_submit():
         hash_pw = bcrypt.generate_password_hash(form.password.data)
-        user = Users(email=form.email.data, password=hash_pw)
+        user = Users(
+            first_name=form.first_name.data,
+            last_name=form.last_name.data,
+            email=form.email.data,
+            password=hash_pw
+        )
         print(user)
         db.session.add(user)
         db.session.commit()
@@ -133,7 +156,8 @@ def newentry():
             plant_name=form.plant_name.data,
             plant_nick=form.plant_nick.data,
             plant_desc=form.plant_desc.data,
-            plant_notes=form.plant_notes.data
+            plant_notes=form.plant_notes.data,
+            user_id=Users.get_id(current_user)
         )
         db.session.add(post_data)
         db.session.commit()
@@ -158,6 +182,7 @@ def create():
 def delete():
     db.session.query(Posts).delete()
     db.session.commit()
+    db.drop_all()
     return "It's all gone."
 
 
