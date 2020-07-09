@@ -117,7 +117,7 @@ def signin():
 @login_required
 def account():
     post = current_user.id
-    #post_data = Posts.query.all()
+    post_data = Posts.query.all()
     post_data = Posts.query.filter_by(user_id=post)
     return render_template('account.html', title='My Account', plants=post_data)
 
@@ -184,23 +184,23 @@ def delete():
 @login_required
 def account_delete():
     user = current_user.id
-    post = current_user.id
     accounttodelete = Users.query.filter_by(id=user).first()
-    poststodelete = Posts.query.filter_by(user_id=post).all()
+    poststodelete = Posts.__table__.delete().where(Posts.user_id == user)
+    db.session.execute(poststodelete)
     logout_user()
     db.session.delete(accounttodelete)
-    db.session.delete(poststodelete)
-    print("delete account")
     db.session.commit()
     return redirect(url_for('signup'))
 
 
-def validate_email(self, email):
-    user = Users.query.filter_by(email=email.data).first()
-
-    if user:
-        raise ValidationError('Email already in use.')
-
-
 if __name__ == '__main__':
     app.run()
+
+
+
+# def validate_email(self, email):
+#     user = Users.query.filter_by(email=email.data).first()
+#
+#     if user:
+#         raise ValidationError('Email already in use.')
+
