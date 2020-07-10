@@ -9,6 +9,8 @@
             <p>Nickname: <br> {{ post.plant_nick }}</p>
             <p>Plant Details: <br> {{ post.plant_desc }}</p>
             <p>Plant Notes: <br> {{ post.plant_notes }}</p>
+            {% print(post.plant_name) %}
+            <p><a href="{{ url_for('updateplant', thisplant = post.id)}}">Edit Plant</a></p>
             <br>
         </div>
     {% endfor %}

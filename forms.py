@@ -32,11 +32,41 @@ class UpdateAccountForm(FlaskForm):
 
     submit = SubmitField('Update')
 
-    # def validate_email(self, email):
-    #     if email.data != current_user.email:
-    #         user = Users.query, filter_by(email=email.data).first()
-    #         if user:
-    #             raise ValidationError('Email already in use.')
+
+class UpdatePlantsForm(FlaskForm):
+    plant_name = StringField(
+        'Plant Name',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    plant_nick = StringField(
+        'Plant Nickname',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=30)
+        ]
+    )
+
+    plant_desc = StringField(
+        'Plant Description',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=200)
+        ]
+    )
+
+    plant_notes = StringField(
+        'Additional Notes',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=300)
+        ]
+    )
+
+    submit = SubmitField('Update Plant.')
 
 
 class PlantsForm(FlaskForm):

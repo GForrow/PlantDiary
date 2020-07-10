@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
-from forms import PlantsForm, SignInForm, SignUpForm, UpdateAccountForm
+from forms import PlantsForm, SignInForm, SignUpForm, UpdateAccountForm, UpdatePlantsForm
 from flask_bcrypt import Bcrypt
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
@@ -39,11 +39,17 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    # def __repr__(self):
+    #     return ''.join(
+    #         [
+    #             'User ID: ', str(self.user_id), '\r\n',
+    #             'Title: ', self.plant_name, '\r\n', self.plant_desc
+    #         ]
+    #     )
     def __repr__(self):
         return ''.join(
             [
-                'User ID: ', self.user_id, '\r\n',
-                'Title: ', self.plant_name, '\r\n', self.plant_desc
+                str(self.user_id), self.plant_name, self.plant_nick, self.plant_desc, self.plant_notes, '\r\n',
             ]
         )
 
@@ -85,6 +91,27 @@ def updateaccount():
     return render_template('updateaccount.html', title='Update Account', form=form)
 
 
+@app.route('/updateplant/<thisplant>', methods=['GET', 'POST'])
+@login_required
+def updateplant(thisplant):
+    form = UpdatePlantsForm()
+    plantupdate = Posts.query.filter_by(id=thisplant).first()
+    print(plantupdate.plant_name)
+    if form.validate_on_submit():
+        plantupdate.plant_name = form.plant_name.data
+        plantupdate.plant_nick = form.plant_nick.data
+        plantupdate.plant_desc = form.plant_desc.data
+        plantupdate.plant_notes = form.plant_notes.data
+        db.session.commit()
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.plant_name.data = plantupdate.plant_name
+        form.plant_nick.data = plantupdate.plant_nick
+        form.plant_desc.data = plantupdate.plant_desc
+        form.plant_notes.data = plantupdate.plant_notes
+    return render_template('updateplant.html', title='Update Plant', form=form)
+
+
 @login_manager.user_loader
 def load_user(id):
     return Users.query.get(int(id))
@@ -117,7 +144,7 @@ def signin():
 @login_required
 def account():
     post = current_user.id
-    post_data = Posts.query.all()
+    # post_data = Posts.query.all()
     post_data = Posts.query.filter_by(user_id=post)
     return render_template('account.html', title='My Account', plants=post_data)
 
