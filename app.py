@@ -112,6 +112,17 @@ def updateplant(thisplant):
     return render_template('updateplant.html', title='Update Plant', form=form)
 
 
+@app.route("/account/<thisplant>", methods=['GET', 'POST'])
+@login_required
+def post_delete(thisplant):
+    user = current_user.id
+    print(thisplant)
+    posttodelete = Posts.__table__.delete().where(Posts.id == thisplant)
+    db.session.execute(posttodelete)
+    db.session.commit()
+    return redirect(url_for('account'))
+
+
 @login_manager.user_loader
 def load_user(id):
     return Users.query.get(int(id))
@@ -144,7 +155,6 @@ def signin():
 @login_required
 def account():
     post = current_user.id
-    # post_data = Posts.query.all()
     post_data = Posts.query.filter_by(user_id=post)
     return render_template('account.html', title='My Account', plants=post_data)
 
