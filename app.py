@@ -39,13 +39,6 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    # def __repr__(self):
-    #     return ''.join(
-    #         [
-    #             'User ID: ', str(self.user_id), '\r\n',
-    #             'Title: ', self.plant_name, '\r\n', self.plant_desc
-    #         ]
-    #     )
     def __repr__(self):
         return ''.join(
             [
@@ -112,12 +105,13 @@ def updateplant(thisplant):
     return render_template('updateplant.html', title='Update Plant', form=form)
 
 
-@app.route("/account/<thisplant>", methods=['GET', 'POST'])
+@app.route("/account/<int:thisplant>", methods=['GET', 'POST'])
 @login_required
 def post_delete(thisplant):
     user = current_user.id
     print(thisplant)
     posttodelete = Posts.__table__.delete().where(Posts.id == thisplant)
+    #if posttodelete.user_id == current_user.id():
     db.session.execute(posttodelete)
     db.session.commit()
     return redirect(url_for('account'))
@@ -232,12 +226,4 @@ def account_delete():
 
 if __name__ == '__main__':
     app.run()
-
-
-
-# def validate_email(self, email):
-#     user = Users.query.filter_by(email=email.data).first()
-#
-#     if user:
-#         raise ValidationError('Email already in use.')
 
