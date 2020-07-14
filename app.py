@@ -205,10 +205,10 @@ def create():
 
 @app.route('/delete')
 def delete():
-    db.session.query(Posts).delete()
-    db.session.commit()
-    db.drop_all()
-    return "It's all gone."
+    #db.session.query(Posts).delete()
+    #db.session.commit()
+    #db.drop_all()
+    return "Nice try, Gordon."
 
 
 @app.route("/updateaccount/delete", methods=['GET', 'POST'])
