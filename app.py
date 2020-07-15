@@ -191,7 +191,7 @@ def newentry():
         )
         db.session.add(post_data)
         db.session.commit()
-
+        print(current_user)
         return redirect(url_for('account'))
     else:
         return render_template('newentry.html', title='New Plant', form=form)
