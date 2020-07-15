@@ -1,24 +1,40 @@
 {% extends "layout.html" %}
 
 {%  block body_content %}
-    <h1>This is the plant list!</h1>
+    <h1>Your plants:
+
+    </h1>
+
+    <div>
+        <table class="table">
+        <tr>
+            <th>Plant Name</th>&nbsp;
+            <th>Nickname</th>&nbsp;
+            <th>Details</th>&nbsp;
+            <th>Additional Notes</th>&nbsp;
+        </tr>
 
     {%  for post in plants %}
-        <div>
-            <b><u><h3>{{ post.plant_name }}</h3></u></b>
-{#            <p>{{ post.plant_name }}</p>#}
-            <p>Nickname: <br> {{ post.plant_nick }}</p>
-            <p>Plant Details: <br> {{ post.plant_desc }}</p>
-            <p>Plant Notes: <br> {{ post.plant_notes }}</p>
+        <tr class="tableText">
+            <td><p>{{ post.plant_name }}</p></td>
+            <td><p>{{ post.plant_nick }}</p></td>
+            <td><p>{{ post.plant_desc }}</p></td>
+            <td><p>{{ post.plant_notes }}</p></td>
+            <td>
             <form action="{{ url_for('updateplant', thisplant = post.id)}}">
                 <button type="submit">Update Plant</button>
-            </form>
+            </form></td>
+            <td>
             <form action="{{ url_for('post_delete', thisplant = post.id)}}">
                 <button type="submit">Delete Plant</button>
             </form>
-
-            <br>
-        </div>
+            </td>
+        </tr>
     {% endfor %}
+        </table>
+        <form action="{{ url_for('newentry')}}">
+                <button type="submit">Add New Plant</button>
+        </form>
+    </div>
 
 {% endblock %}
