@@ -16,9 +16,7 @@
 * Improvements To Be Made
 * Authors  
 
-#####Resources:
-* Trello - https://trello.com/b/mWkaYpmy/plant-diary
-* Link to app - http://35.189.101.96/
+
 
 <br>
 
@@ -147,114 +145,37 @@ The user also has the option to update their account details or delete their acc
 </p>
 <br>
 <br>
-<br>
-<br>
-<br>
 
-Structure:<br>
-* Introduction<br>
-	* Introduce yourself<br>
-	* Introduce the task that was given and what you chose for it in terms of the topic<br>
-* Contents<br>
-	* Explain the structure of the presentation<br>
-* Main<br>
-    * Expand your project, why have you chosen it, how it relates to you<br>
-    * Explain the plan you made for this project and how well/bad did you follow it<br>
-    * Expand on technologies you used<br>
-    Trello for Kanban boards for user stories and sprint tracking<br>
-    GCP as cloud hosting platform with Linux VM and mySQL database<br>
-    Python for application back end, using Flask framework<br>
-    HTML for application front end <br>
-    Git for version control, using github <br>
-    Jenkins CI server implemented in Linux VM <br>
-    Linux Systemsd used to run app as system service for uptime <br>
-        * Why have you chosen it<br>
-        * What did you learn from working with it<br>
-        * What went well/bad with it<br>
-        * How could you improve the usage of it next time you would use it<br>
-* Lessons<br>
-        * What went well for the project<br>
-        * What didn't go so well for the project<br>
-        * What could you have done differently<br>
-        * Best things you learned from this project<br>
-* Demo<br>
-        * Demonstrate the project<br>
-        * Tools can also be demonstrated that were used for the project<br>
-* Questions<br>
-	2 questions<br>
+##Difficulties Faced
+Page Layout and Design<br>
+The original design I had planned would present the user with a splash screen welcoming them to the website with a message in the middle of
+the page, with navigation buttons beneath this message. When it came to development I found I did not have the time to develop
+my HTML skills enough to achieve this. The ideal design also had tiled plant themed background image present on all pages. 
 
+Database Structure<br>
+When the project was planned, one of the "shoulds" was to include the functionality of the user to have individual rooms
+which they could organise their plants into. I feel I should have approached this first to avoid having to dismantle some of
+the existing functionality to add this. 
 
-
-This project was created to meet the following criteria p
-
-**this would make text bold** 
-
-_this would make it italic_
-
-**_this would make it bold and italic_**
-~~_**bold italics**_~~
-
-~~strikethrough text~~
-
-> example of a sentence block quote
-
-
-
->Example of a 
->sentence block
->quote
->on multiple lines
-
-* bullet points
-* use a *
-    * indent with tab
-        * more indented
-        
-- dashes work too
-    - like this 
-
-1. number lists
-2. pretty simple
-    1. can be indented
-    2. doesn't work with letters, only numbers. 
-
-Take a new line by using `<br>` 
 <br>
 
-`this is a code example`
+##Current Issues
+* Database entries can currently be deleted by navigating directly to the delete post URL in the browser if the post IDs are known
 
-```python
-print("hello")
-print("example of python code insert")
-```
-Tables take some extra formatting using | and ----
-
-| Column1     | Column2     |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-
-<img align="left" width="100" height="100" src="https://s3.amazonaws.com/spectrumnews-web-assets/wp-content/uploads/2018/11/13154625/20181112-SHANK3monkey-844.jpg">
 <br>
-<img align="right" width="100" height="100" src="https://s3.amazonaws.com/spectrumnews-web-assets/wp-content/uploads/2018/11/13154625/20181112-SHANK3monkey-844.jpg">
+
+##Future Improvements
+* Implement Splash screen on homepage for a more aesthetically pleasing welcome to the site.
+* Implement user rooms for better plant organisation.
+* Add plant themed background to pages.
+* More consideration in page layout and font styling. 
+
+###Author
+Gary Forrow
+
 <br>
-<p align="center">
-  <img width="460" height="300" src="https://s3.amazonaws.com/spectrumnews-web-assets/wp-content/uploads/2018/11/13154625/20181112-SHANK3monkey-844.jpg">
-</p>
 
-[This is button text, takes us to google.com](http://www.google.com)
-
-![This text is loaded if image cannot be found](https://qa-courseware-images.s3.eu-west-2.amazonaws.com/markdown/links_images/000.jpeg)
-
-
-![Manchester City][blue]
-![Manchester United][red]
-
-[blue]: https://cdn.images.express.co.uk/img/dynamic/footballteams/x256/20.png
-[red]: https://icons.iconseeker.com/png/fullsize/soccer-teams/manchester-united-fc-logo.png
-
-
-moving lines around
-typing on multiple lines using middle mouse click
-
-making a commit
+#####Resources:
+* Trello - https://trello.com/b/mWkaYpmy/plant-diary
+* Link to app - http://35.189.101.96/
+<br>
