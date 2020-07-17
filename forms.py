@@ -45,8 +45,7 @@ class UpdatePlantsForm(FlaskForm):
     plant_nick = StringField(
         'Plant Nickname',
         validators=[
-            DataRequired(),
-            Length(min=1, max=30)
+            Length(max=50)
         ]
     )
 
@@ -54,15 +53,14 @@ class UpdatePlantsForm(FlaskForm):
         'Plant Description',
         validators=[
             DataRequired(),
-            Length(min=2, max=200)
+            Length(min=1, max=200)
         ]
     )
 
     plant_notes = StringField(
         'Additional Notes',
         validators=[
-            DataRequired(),
-            Length(min=2, max=300)
+            Length(max=300)
         ]
     )
 
@@ -153,14 +151,14 @@ class SignUpForm(FlaskForm):
         ]
     )
 
-    password = StringField(
+    password = PasswordField(
         'Password: ',
         validators=[
             DataRequired(),
         ]
     )
 
-    confpassword = StringField(
+    confpassword = PasswordField(
         'Confirm Password: ',
         validators=[
             DataRequired(),
