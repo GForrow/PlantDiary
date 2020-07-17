@@ -33,7 +33,7 @@ that were covered during out training, which will be looked at in more detail fu
 * User stories and use cases needed to complete the project.
 * A relational database use for persistent data storage, with at least 2 tables.
 * Clear documentation.
-* A functional CRUD application created in Python, following best practices and design principles, which meets requiorements 
+* A functional CRUD application created in Python, following best practices and design principles, which meets requirements 
 set out on project management tool.
 * A functioning front-end website and integrated API's, using Flask.
 * Code fullt integrated into a Version Control System using Feature-Branch model, subsequently built through a
