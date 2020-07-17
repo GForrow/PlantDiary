@@ -1,9 +1,9 @@
-#Plant Diary
+# Plant Diary
 
 <b>Project:</b> PlantDiary <br>
 <b>Made by:</b> Gary Forrow <br>
 
-##ReadMe Content
+## ReadMe Content
 * The Brief
 * App Functionality
 * Data
@@ -20,7 +20,7 @@
 
 <br>
 
-##The Brief
+## The Brief
 The brief set out for this particular project was to 'Create a CRUD application with utilisation of supporting tools, 
 methodologies and technologies that encapsulate all core modules covered during training'. <br>
 <br>
