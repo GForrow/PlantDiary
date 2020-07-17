@@ -174,6 +174,7 @@ the existing functionality to add this.
 * Implement user rooms for better plant organisation.
 * Add plant themed background to pages.
 * More consideration in page layout and font styling. 
+* Ability to upload images to each plant entry.
 
 <br>
 
