@@ -100,7 +100,7 @@ class PlantsForm(FlaskForm):
         ]
     )
 
-    submit = SubmitField('Make a post.')
+    submit = SubmitField('Add this plant.')
 
 
 class SignInForm(FlaskForm):
