@@ -47,6 +47,7 @@ To satisfy the brief, my aim was to design a Plant Diary that would allow users 
 a nickname given by the user, details of the particular plant, and any additional notes for each plant.
 The goal of this was to be able to provide an easy way to track the care and development of an indoor garden for anyone
 who has found their collection has grown beyond easy management. 
+
 <br>
 
 The user stories I set to meet the above brief were: 
@@ -76,6 +77,9 @@ The final outline for the tables in the database, and the relationship between t
 
 This diagram specifies the single to many relationship between a user and their plants, where a plant must always belong to a user with the user_id field.
 
+<br>
+
+
 ## Technologies Used
 
 To keep in line with the brief I made us of the following technologies that were learned during my training: 
@@ -90,6 +94,7 @@ To keep in line with the brief I made us of the following technologies that were
 * Jenkins - CI Server
 * Systemsd - Runs application as a service on Linux VM
 
+<br>
 
 ## CI Pipeline
 <p align="center">
@@ -143,8 +148,8 @@ The user also has the option to update their account details or delete their acc
 <p align="center">
   <img src="https://i.imgur.com/mCvxbSo.png">
 </p>
-<br>
 
+<br>
 
 ## Difficulties Faced
 Page Layout and Design<br>
