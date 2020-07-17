@@ -16,8 +16,6 @@
 * Improvements To Be Made
 * Authors  
 
-
-
 <br>
 
 ## The Brief
@@ -27,6 +25,8 @@ methodologies and technologies that encapsulate all core modules covered during 
 This would involve creating an application with the functionality to <u><b>C</b></u>reate, <u><b>R</b></u>ead, 
 <u><b>U</b></u>pdate, and <u><b>D</b></u>elete records in a database. We were to achieve this using multiple technologies
 that were covered during out training, which will be looked at in more detail further in this readme.
+
+<br>
 
 ### Minimum Requirements:
 * Project management and tracking via Trello or equivalent Kanban board tech. 
@@ -136,7 +136,7 @@ Once submitted the user is directed back to their plant list with the new entry 
   <img src="https://i.imgur.com/mBFU6a6.png">
 </p>
 The user also has the option to update their account details or delete their account and posts entirely.
-<br>
+
 <br>
 
 ## Risk Assessment
@@ -144,7 +144,7 @@ The user also has the option to update their account details or delete their acc
   <img src="https://i.imgur.com/mCvxbSo.png">
 </p>
 <br>
-<br>
+
 
 ## Difficulties Faced
 Page Layout and Design<br>
@@ -169,6 +169,8 @@ the existing functionality to add this.
 * Implement user rooms for better plant organisation.
 * Add plant themed background to pages.
 * More consideration in page layout and font styling. 
+
+<br>
 
 ### Author
 Gary Forrow
