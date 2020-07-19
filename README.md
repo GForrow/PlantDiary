@@ -36,7 +36,7 @@ that were covered during out training, which will be looked at in more detail fu
 * A functional CRUD application created in Python, following best practices and design principles, which meets requirements 
 set out on project management tool.
 * A functioning front-end website and integrated API's, using Flask.
-* Code fullt integrated into a Version Control System using Feature-Branch model, subsequently built through a
+* Code fully integrated into a Version Control System using Feature-Branch model, subsequently built through a
 CI server and deployed to a cloud-based virtual machine.
 
 <br>
