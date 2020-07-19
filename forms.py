@@ -79,7 +79,7 @@ class PlantsForm(FlaskForm):
     plant_nick = StringField(
         'Plant Nickname',
         validators=[
-            Length(min=1, max=30)
+            Length(max=30)
         ]
     )
 
@@ -94,7 +94,7 @@ class PlantsForm(FlaskForm):
     plant_notes = StringField(
         'Additional Notes',
         validators=[
-            Length(min=2, max=300)
+            Length(max=300)
         ]
     )
 
